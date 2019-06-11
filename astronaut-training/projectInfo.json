@@ -1,0 +1,8 @@
+{
+    "environments": [
+        "dev",
+        "stage",
+        "prod"
+    ],
+    "name": "astronaut-training"
+}

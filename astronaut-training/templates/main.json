@@ -1,0 +1,80 @@
+{
+    "rules": {
+        "name": "default",
+        "children": [
+            "#include:performance.json",
+            "#include:Offload.json",
+            "#include:enable_delete.json",
+            "#include:CORS_configuration.json"
+        ],
+        "behaviors": [
+            {
+                "name": "origin",
+                "options": {
+                    "cacheKeyHostname": "ORIGIN_HOSTNAME",
+                    "compress": true,
+                    "enableTrueClientIp": false,
+                    "forwardHostHeader": "ORIGIN_HOSTNAME",
+                    "httpPort": 80,
+                    "httpsPort": 443,
+                    "originSni": true,
+                    "originType": "CUSTOMER",
+                    "verificationMode": "PLATFORM_SETTINGS",
+                    "hostname": "${env.origin_property_default}",
+                    "originCertificate": "",
+                    "ports": ""
+                }
+            },
+            {
+                "name": "cpCode",
+                "options": {
+                    "value": {
+                        "id": "${env.cpcode_property_default}",
+                        "description": "prod.config-as-code.web.astronaut.training",
+                        "products": [
+                            "SPM"
+                        ],
+                        "createdDate": 1558391032000,
+                        "cpCodeLimits": {
+                            "limit": 186,
+                            "currentCapacity": -153,
+                            "limitType": "account"
+                        },
+                        "name": "prod.config-as-code.web.astronaut.training"
+                    }
+                }
+            },
+            {
+                "name": "allowPost",
+                "options": {
+                    "allowWithoutContentLength": false,
+                    "enabled": true
+                }
+            },
+            {
+                "name": "mPulse",
+                "options": {
+                    "apiKey": "",
+                    "bufferSize": "",
+                    "configOverride": "",
+                    "enabled": true,
+                    "requirePci": false,
+                    "titleOptional": ""
+                }
+            }
+        ],
+        "options": {
+            "is_secure": false
+        },
+        "variables": [
+            {
+                "name": "PMUSER_CORS_ORIGIN_HEADER",
+                "value": "${env.PMUSER_CORS_ORIGIN_HEADER_value}",
+                "description": "Origin header value. Used for CORS logic",
+                "hidden": false,
+                "sensitive": false
+            }
+        ],
+        "comments": "The behaviors in the Default Rule apply to all requests for the property hostname(s) unless another rule overrides the Default Rule settings."
+    }
+}

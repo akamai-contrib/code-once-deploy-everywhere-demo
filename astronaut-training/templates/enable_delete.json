@@ -1,0 +1,22 @@
+{
+	"name": "Enable Delete",
+	"children": [],
+    "behaviors": [
+        {
+            "name": "webdav",
+            "options": {
+                "enabled": true
+            }
+        }
+    ],
+    "criteria": [
+        {
+            "name": "requestMethod",
+            "options": {
+                "matchOperator": "IS",
+                "value": "HTTP_DELETE"
+            }
+        }
+    ],
+    "criteriaMustSatisfy": "all"
+}

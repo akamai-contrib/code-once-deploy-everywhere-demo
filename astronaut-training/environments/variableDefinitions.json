@@ -1,0 +1,20 @@
+{
+    "definitions": {
+        "origin_property_default": {
+            "type": "userVariableValue",
+            "default": ""
+        },
+        "cpcode_property_default": {
+            "type": "userVariableValue",
+            "default": ""
+        },
+        "PMUSER_CORS_ORIGIN_HEADER_value": {
+            "default": "NULL",
+            "type": "userVariableValue"
+        },
+        "cors_whitelist_domains": {
+            "default": "",
+            "type": "userVariableValue"
+        }       	
+    }
+}

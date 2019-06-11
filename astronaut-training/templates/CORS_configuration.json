@@ -1,0 +1,146 @@
+{
+    "name": "CORS Configuration",
+    "children": [
+        {
+            "name": "Construct response for OPTIONS",
+            "children": [],
+            "behaviors": [
+                {
+                    "name": "constructResponse",
+                    "options": {
+                        "body": "<html>\n<title>Success</title>\n<body>Success</body>\n</html>",
+                        "enabled": true,
+                        "responseCode": 200,
+                        "forceEviction": false
+                    }
+                },
+                {
+                    "name": "webdav",
+                    "options": {
+                        "enabled": true
+                    }
+                }
+            ],
+            "criteria": [
+                {
+                    "name": "requestMethod",
+                    "options": {
+                        "matchOperator": "IS",
+                        "value": "OPTIONS"
+                    }
+                }
+            ],
+            "criteriaMustSatisfy": "all"
+        },
+        {
+            "name": "Origin Match",
+            "children": [
+                {
+                    "name": "Set OPTIONS CORS Headers",
+                    "children": [],
+                    "behaviors": [
+                        {
+                            "name": "modifyOutgoingResponseHeader",
+                            "options": {
+                                "action": "MODIFY",
+                                "avoidDuplicateHeaders": true,
+                                "newHeaderValue": "GET,POST,DELETE,PATCH,PUT",
+                                "standardModifyHeaderName": "ACCESS_CONTROL_ALLOW_METHODS"
+                            }
+                        },
+                        {
+                            "name": "modifyOutgoingResponseHeader",
+                            "options": {
+                                "action": "MODIFY",
+                                "avoidDuplicateHeaders": true,
+                                "newHeaderValue": "Accept,Origin,Referer,User-Agent,Content-Type,X-Requested-With",
+                                "standardModifyHeaderName": "ACCESS_CONTROL_ALLOW_HEADERS"
+                            }
+                        },
+                        {
+                            "name": "modifyOutgoingResponseHeader",
+                            "options": {
+                                "action": "MODIFY",
+                                "avoidDuplicateHeaders": true,
+                                "newHeaderValue": "86400",
+                                "standardModifyHeaderName": "ACCESS_CONTROL_MAX_AGE"
+                            }
+                        }
+                    ],
+                    "criteria": [
+                        {
+                            "name": "requestMethod",
+                            "options": {
+                                "matchOperator": "IS",
+                                "value": "OPTIONS"
+                            }
+                        }
+                    ],
+                    "criteriaMustSatisfy": "all"
+                }
+            ],
+            "behaviors": [
+                {
+                    "name": "setVariable",
+                    "options": {
+                        "extractLocation": "CLIENT_REQUEST_HEADER",
+                        "headerName": "Origin",
+                        "transform": "NONE",
+                        "valueSource": "EXTRACT",
+                        "variableName": "PMUSER_CORS_ORIGIN_HEADER"
+                    }
+                },
+                {
+                    "name": "modifyIncomingResponseHeader",
+                    "options": {
+                        "action": "DELETE",
+                        "customHeaderName": "Access-Control-Allow-Origin",
+                        "standardDeleteHeaderName": "OTHER"
+                    }
+                },
+                {
+                    "name": "modifyOutgoingResponseHeader",
+                    "options": {
+                        "action": "ADD",
+                        "headerValue": "{{user.PMUSER_CORS_ORIGIN_HEADER}}",
+                        "standardAddHeaderName": "ACCESS_CONTROL_ALLOW_ORIGIN"
+                    }
+                },
+                {
+                    "name": "modifyIncomingResponseHeader",
+                    "options": {
+                        "action": "DELETE",
+                        "customHeaderName": "Access-Control-Allow-Credentials",
+                        "standardDeleteHeaderName": "OTHER"
+                    }
+                },
+                {
+                    "name": "modifyOutgoingResponseHeader",
+                    "options": {
+                        "action": "ADD",
+                        "headerValue": "true",
+                        "standardAddHeaderName": "ACCESS_CONTROL_ALLOW_CREDENTIALS"
+                    }
+                }
+            ],
+            "criteria": [
+                {
+                    "name": "requestHeader",
+                    "options": {
+                        "headerName": "Origin",
+                        "matchCaseSensitiveValue": true,
+                        "matchOperator": "IS_ONE_OF",
+                        "matchWildcardName": false,
+                        "matchWildcardValue": false,
+                        "values": "${env.cors_whitelist_domains}"
+                    }
+                }
+            ],
+            "criteriaMustSatisfy": "all"
+        }
+    ],
+    "behaviors": [],
+    "criteria": [],
+    "criteriaMustSatisfy": "any",
+    "comments": ""
+}
