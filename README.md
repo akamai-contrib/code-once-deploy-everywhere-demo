@@ -26,4 +26,4 @@ akamai pipeline merge -n -p astronaut-training stage
 akamai pipeline merge -n -p astronaut-training prod
 ```
 
-This command does the find/search of all the variables defined in the variableDefinitions.json, environments folder variables.json file, and the rule /template .json files.  Arrays and objects are also able to be substituted as well. The merge output will go in the /dist folder and will be the full raw artifact that can be used to update the desired configuration.  The -n argument (no-validate) is importannt so that it only does the merge (find/replace) locally.  Run this command from one directory above.
+This command does the find/search of all the variables defined in the variableDefinitions.json, environments folder variables.json file, and the rule /template .json files.  Arrays and objects are also able to be substituted as well. The merge output will go in the /dist folder and will be the full raw artifact that can be used to update the desired configuration.  The -n argument (no-validate) is important so that it only does the merge (find/replace) locally.  Run this command from one directory above.
