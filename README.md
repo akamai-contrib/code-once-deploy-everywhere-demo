@@ -1,5 +1,5 @@
 # code-once-deploy-everywhere-demo
-Sample repo from Edge World breakout session
+Sample repo from Edge World 2019 breakout session
 
 ## Creating Pipeline Folder Structure
 
